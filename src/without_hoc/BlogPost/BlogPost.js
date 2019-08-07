@@ -1,20 +1,33 @@
 import React, { Component } from 'react';
 import styles from './BlogPost.module.css';
+import DataSource from '../../data/DataSource'
 
 class BlogPost extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            blogPost: {
+                title: '',
+                body: '',
+            },
+        }
+    }
+
+    async componentDidMount(){
+        const blogPost = await DataSource.getBlogPost(1);
+        this.setState({blogPost});
+    }
+
+
     render () {
-        let post = <p>Please select a Post!</p>;
-        post = (
+        return (
             <div className={styles.BlogPost}>
-                <h1>Title</h1>
-                <p>Content</p>
-                <div className="Edit">
-                    <button className="Delete">Delete</button>
-                </div>
+                <h1>{this.state.blogPost.title}</h1>
+                <p>{this.state.blogPost.body}</p>
             </div>
 
         );
-        return post;
     }
 }
 

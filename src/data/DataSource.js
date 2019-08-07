@@ -1,24 +1,29 @@
 import axios from 'axios';
 
-class DataSource {
-    constructor(){
-        this.comments = [];
-        this.blogPost = {};
+class DataSource {  
+    static getComments = async () =>{
+        try {
+            const response = await axios.get(`https://jsonplaceholder.typicode.com/comments`);
+            console.log(response.data);
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
     }
 
-    getComments = () =>{
-
-    }
-
-    getBlogPost = (blogId) =>{
-
+    static getBlogPost = async (blogId) =>{
+        try {
+            const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${blogId}`);
+            console.log(response.data);
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            return null;
+        }
     } 
 
-    addChangeListener = () =>{
-        
-    }
-
-    removeChangeListener = () =>{
-
-    }
+    
 }
+
+export default DataSource;
