@@ -6,7 +6,6 @@ class Blog extends Component {
     render () {
         return (
             <div>
-                <BlogPost />
                 <Comments/>
             </div>
         );

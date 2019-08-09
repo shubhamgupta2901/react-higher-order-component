@@ -1,20 +1,29 @@
 import React from 'react';
 import DataSource from '../../../data/DataSource';
+import Modal from '../../Modal/Modal';
+import Spinner from '../../Spinner/Spinner'; 
 export default function withDataSourceSubscription (WrappedComponent,selectData) {
     class EnhancedComponent extends React.Component{
         constructor(props){
             super(props);
             this.state = {
                 data: null,
+                loading:true,
             }
         }
         async componentDidMount(){
             const response = await selectData(DataSource, this.props);
-            this.setState({data: response});
+            setTimeout(()=>{
+                this.setState({data: response, loading: false});
+            },3000)
+            
         }
         render(){
             return(
-                <WrappedComponent data={this.state.data}/>
+                <React.Fragment>
+                    {this.state.loading ? <Modal><Spinner/></Modal> : null}
+                    <WrappedComponent data={this.state.data}/>
+                </React.Fragment>
             );
         }
     }
