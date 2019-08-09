@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import styles from './BlogPost.module.css';
 import DataSource from '../../data/DataSource'
+import PropTypes from 'prop-types';
 
 class BlogPost extends Component {
-
+    
     constructor(props){
         super(props);
         this.state = {
@@ -15,7 +16,7 @@ class BlogPost extends Component {
     }
 
     async componentDidMount(){
-        const blogPost = await DataSource.getBlogPost(1);
+        const blogPost = await DataSource.getBlogPost(this.props.id);
         this.setState({blogPost});
     }
 
@@ -29,6 +30,14 @@ class BlogPost extends Component {
 
         );
     }
+}
+
+BlogPost.propTypes = {
+    id: PropTypes.number,
+}
+
+BlogPost.defaultProps = {
+    id: 1
 }
 
 export default BlogPost;

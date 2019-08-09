@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Comment from './Comment/Comment';
 import styles from './Comments.module.css'
 import DataSource from '../../data/DataSource';
-class CommentsList extends React.Component {
+class Comments extends React.Component {
   
   constructor(props){
     super(props);
@@ -33,10 +33,10 @@ class CommentsList extends React.Component {
   }
 }
 
-CommentsList.propTypes ={
+Comments.propTypes ={
 }
 
-CommentsList.defaultProps ={
+Comments.defaultProps ={
 }
 
-export default CommentsList;
+export default Comments;
