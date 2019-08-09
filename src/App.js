@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Blog from './with_hoc/Blog/Blog'
+import Blog from './02.with_hoc/Blog/Blog'
 
 function App() {
   return (
