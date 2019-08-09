@@ -1,32 +1,29 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import styles from './Comments.module.css';
+import withDataSourceSubscription from '../hoc/withDataSourceSubscription/withDataSourceSubscription';
 import Comment from './Comment/Comment';
-import styles from './Comments.module.css'
 
-class CommentsList extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-    }
+const comments =(props) => {
+  
+  if(props.data){
+    return(
+      <div className={styles.Comments}>
+         {props.data.slice(0,5).map(comment=> <Comment  comment = {comment}key = {comment.id}/>)}
+      </div>
+    )
   }
-
-  render(){
-    return (
-        <div className={styles.Comments}>
-            <Comment/>
-            <Comment/>
-            <Comment/>
-            <Comment/>
-        </div>
-        
-    );
-  }
+  return null;
 }
 
-CommentsList.propTypes ={
+comments.propTypes ={
+  data: PropTypes.arrayOf(PropTypes.object)
 }
 
-CommentsList.defaultProps ={
+comments.defaultProps ={
+  data: [],
 }
 
-export default CommentsList;
+const CommentsWithDataSourceSubscription = withDataSourceSubscription(comments,(DataSource)=> DataSource.getComments());
+export default CommentsWithDataSourceSubscription;
+

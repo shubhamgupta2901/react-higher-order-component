@@ -1,21 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './BlogPost.module.css';
+import PropTypes from 'prop-types';
+import withDataSourceSubscription from '../hoc/withDataSourceSubscription/withDataSourceSubscription';
 
-class BlogPost extends Component {
-    render () {
-        let post = <p>Please select a Post!</p>;
+const blogPost = (props) => {
+    let post = <p>Please select a Post!</p>;
+    if(props.data){
         post = (
             <div className={styles.BlogPost}>
-                <h1>Title</h1>
-                <p>Content</p>
-                <div className="Edit">
-                    <button className="Delete">Delete</button>
-                </div>
+                <h1>{props.data.title}</h1>
+                <p>{props.data.body}</p>
             </div>
-
         );
-        return post;
+    }  
+    return post;
+}
+
+blogPost.propTypes={
+    data: PropTypes.object,
+}
+
+blogPost.defaultProps = {
+    data: {
+        title: 'Title',
+        body: 'Body',
     }
 }
 
-export default BlogPost;
+const BlogPostWithDataSourceSubscription = withDataSourceSubscription(blogPost,(DataSource,props)=>DataSource.getBlogPost(1));
+export default BlogPostWithDataSourceSubscription;
